@@ -10,5 +10,5 @@ async def get_time(timezone: str = "local") -> str:
     now = datetime.now(timezone.utc) if tz == "utc" else datetime.now()
     return now.isoformat(sep=" ", timespec="seconds")
 
-mcp.run(transport="streamable-http")
-#mcp.run(transport="stdio")
+#mcp.run(transport="streamable-http")
+mcp.run(transport="stdio")
