@@ -1,43 +1,9 @@
-## Note on Google Scholar Profiles API
+## Agentic AI Code – Corso 2025
 
-If you see this error:
+Questo repository raccoglie codice, esempi e piccoli progetti per il corso 2025 su **agentic AI coding**, dedicato alla costruzione di agenti di intelligenza artificiale capaci di ragionare, pianificare e usare strumenti in modo autonomo.
 
-```
-{"error": "The Google Scholar Profiles API is discontinued."}
-```
+L’obiettivo è offrirti punti di partenza pratici per:
+- comprendere i pattern fondamentali degli agenti (uso di tool, planning, memoria, ambienti);
+- sperimentare implementazioni in Python nei file e nelle cartelle `time-mcp.py`, `models/` e `data/`;
+- utilizzare il notebook `sample.ipynb` per esplorazioni interattive e per adattare gli esempi ai tuoi progetti.
 
-that endpoint is no longer available (common with third‑party wrappers like old "Google Scholar Profiles" APIs). Instead, use open, supported sources such as OpenAlex or Semantic Scholar.
-
-### Quick replacement: OpenAlex (no API key)
-
-The repository includes a tiny helper `utils/openalex_client.py` (no extra deps, uses stdlib) that lets you search authors and list their works via the OpenAlex API.
-
-Example:
-
-```python
-from utils.openalex_client import search_authors, get_author_works
-
-# 1) Find an author
-authors = search_authors("Yann LeCun", per_page=3)
-for a in authors:
-	print(a.display_name, a.h_index, a.id)
-
-# 2) Fetch top works for the first result
-if authors:
-	works = get_author_works(authors[0].id, per_page=5)
-	for w in works:
-		print(w.publication_year, w.cited_by_count, w.display_name)
-```
-
-OpenAlex docs: https://docs.openalex.org/
-
-### Alternative: Semantic Scholar (API key recommended)
-
-Semantic Scholar also offers a solid public API (with generous free tier). You can search authors and papers, and fetch detailed profiles:
-- Docs: https://api.semanticscholar.org/api-docs/
-- Start with: `/graph/v1/author/search?query=...` and `/graph/v1/author/{authorId}`
-
-If you'd like, we can wire a small client for Semantic Scholar too, with optional caching and rate‑limit handling.
-
-### Why not “Google Scholar API”?  
-Google Scholar does not offer an official public API. Many unofficial endpoints have been shut down or blocked, which is why you may see the discontinuation error above.
